@@ -1,0 +1,82 @@
+1. create folder for project ex- myfirstbot
+2. cd + path of our folder
+3. conda create --name chatbotvenv --python==3.7.6
+4. conda activate chatbotvenv
+5. conda install ujson==4.0.2
+6. conda install tensorflow==2.5.0
+7. pip install rasa==2.6.0
+8. rasa init
+
+=====================================================================
+1. Change in nlu.yml for input texts
+2. Change in domain.yml for output texts
+
+commands:
+rasa shell
+rasa train
+
+====================================================================
+deploying on local server:
+change socketio in credentials.yml
+socketio:
+  user_message_evt: user_uttered
+  bot_message_evt: bot_uttered
+  session_persistence: true
+
+command:
+rasa run --help
+rasa run --cors "*" --debug
+rasa run --m models --enable-api --cors "*" --debug
+
+
+rasa: 2.3.4
+engine.io: 3.13.2
+socket.io: 
+
+===================================================================
+deploying on online server:
+put ngrok.exe in bot folder
+open cmd
+cd desktop/myfirstbot/
+run ngrok http 5005
+
+==================================================================
+##intent:askAboutYou
+-can you develop a chatbot?
+-are you a developer?
+-what are your skills?
+
+##intent:developAChatbot
+-I want to develop my own chatbot
+-What is the price for developing my chatbot
+-can I have a chatbot?
+
+domain:
+	-askAboutYou
+	-developAChatbot
+	utter_expert:
+	-text: "I'm a chatbot expert!!"
+	utter_price:
+	-text: "I can develop a chatbot for you in one day by 20$"
+
+story:
+## develop a chatbot
+* askAboutYou
+-utter_expert
+* developAChatbot
+-utter_price
+======================================================================
+
+Deploying on cloud
+
+git clone <repo link>
+git add .
+git commit -m "version 1"
+git push
+
+edit readMe.md by changing link
+
+add server.sh in app
+uncomment config.yml or copy
+
+
